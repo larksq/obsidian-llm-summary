@@ -1,22 +1,18 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting, addIcon } from 'obsidian';
+import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
 import { OpenAI } from "openai";
-import { PDFDocument } from 'pdf-lib';
-
-// Define a constant for the OpenAI API key
-const OPENAI_API_KEY = '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';
-
-// Initialize OpenAI configuration
-const openai = new OpenAI({
-	apiKey: OPENAI_API_KEY,
-	dangerouslyAllowBrowser: true,
-});
 
 interface MyPluginSettings {
-	mySetting: string;
+	OpenAIAPIKey: string;
+	newConceptPrompt: string;
+	pdfFolder: string;
+	summaryOutputFolder: string;
 }
 
 const DEFAULT_SETTINGS: MyPluginSettings = {
-	mySetting: 'default'
+	OpenAIAPIKey: "",
+	newConceptPrompt: "ML",
+	pdfFolder: "Files/Raw PDFs",
+	summaryOutputFolder: "Concepts"
 }
 
 export default class MyPlugin extends Plugin {
@@ -26,9 +22,9 @@ export default class MyPlugin extends Plugin {
 		await this.loadSettings();
 
 		// This creates an icon in the left ribbon.
-		const ribbonIconEl = this.addRibbonIcon('bot', 'Sample Plugin', (evt: MouseEvent) => {
+		const ribbonIconEl = this.addRibbonIcon('bot', 'Summary PDF Folder', (evt: MouseEvent) => {
 			// Called when the user clicks the icon.
-			new Notice('This is a notice!');
+			new Notice(`WIP, Run the Python script mannually.`);
 		});
 		// Perform additional things with the ribbon
 		ribbonIconEl.addClass('my-plugin-ribbon-class');
@@ -46,7 +42,11 @@ export default class MyPlugin extends Plugin {
 				const { vault } = this.app;
 				vault.createFolder('Topics');
 				vault.createFolder('Notes');
+				vault.createFolder('Notes/Read');
 				vault.createFolder('Concepts');
+				vault.createFolder('Attachments');
+				vault.createFolder('Files');
+				vault.createFolder('Files/Raw PDFs');
 				// TODO: also add a readme file for instructions
 			}
 		});
@@ -62,13 +62,21 @@ export default class MyPlugin extends Plugin {
 					// Sanitize the selected text to create a valid file name
 					const sanitizedFileName = selectedText.replace(/[<>:"\/\\|?*]/g, '').trim();
 					if (sanitizedFileName) {
+						// Initialize OpenAI configuration
+						const openai = new OpenAI({
+							apiKey: this.settings.OpenAIAPIKey,
+							dangerouslyAllowBrowser: true,
+						});
+
+						new Notice(`Defining new concept: ${sanitizedFileName}`)
+
 						const filePath = `Concepts/${sanitizedFileName}.md`;
 						editor.replaceSelection(`[[${sanitizedFileName}]]`);
 						statusBarItemEl.setText('Defining New Concept..');
 						try {
 							// Query OpenAI API to generate text based on selected text
 							const response = await openai.chat.completions.create({
-								messages: [{ role: 'user', content: `Define and explain this ML concept: ${selectedText}` }],
+								messages: [{ role: 'user', content: `Define and explain this ${this.settings.newConceptPrompt} concept: ${selectedText}` }],
 								model: 'gpt-4o-mini',
 							});
 
@@ -76,7 +84,7 @@ export default class MyPlugin extends Plugin {
 
 							// Create a new file in the vault with the selected text as its name
 							await vault.create(filePath, `This is a Thoth Concept.\n\n${generatedContent}`);
-							new Notice(`Created new concept note: ${sanitizedFileName}`);
+							new Notice(`New created note at Concepts/${sanitizedFileName}`);
 						} catch (error) {
 							new Notice(`Error creating note: ${error.message}`);
 						}
@@ -144,22 +152,37 @@ class SampleSettingTab extends PluginSettingTab {
 	constructor(app: App, plugin: MyPlugin) {
 		super(app, plugin);
 		this.plugin = plugin;
-	}
 
-	display(): void {
 		const {containerEl} = this;
 
 		containerEl.empty();
+		// const intro = containerEl.createEl("div");
+		// intro.createEl(
+		// 	"h2", {text: "Setup "}
+		// );
 
 		new Setting(containerEl)
-			.setName('Setting #1')
-			.setDesc('It\'s a secret')
+			.setName('OpenAI API Key (Required)')
+			.setDesc('Enter your OpenAI API Key (stored at local only).')
 			.addText(text => text
-				.setPlaceholder('Enter your secret')
-				.setValue(this.plugin.settings.mySetting)
+				.setPlaceholder('sk-...')
+				.setValue(this.plugin.settings.OpenAIAPIKey)
 				.onChange(async (value) => {
-					this.plugin.settings.mySetting = value;
+					this.plugin.settings.OpenAIAPIKey = value;
 					await this.plugin.saveSettings();
 				}));
+		new Setting(containerEl)
+			.setName('New Concept Fields (Required)')
+			.setDesc('Your expert fields for notes. Left empty to not specify (and got vague explains). Modify carefully.')
+			.addText(text => text
+				.setPlaceholder('ML')
+				.setValue(this.plugin.settings.newConceptPrompt)
+				.onChange(async (value) => {
+					this.plugin.settings.newConceptPrompt = value;
+					await this.plugin.saveSettings();
+				}));
+	}
+
+	display(): void {
 	}
 }
