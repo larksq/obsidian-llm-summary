@@ -1,0 +1,11 @@
+{
+	"id": "thoth-notes",
+	"name": "Thoth Notes",
+	"version": "0.1.1",
+	"minAppVersion": "0.15.0",
+	"description": "Quick note taking with the help of LLMs. LLMs help you to summarize / organize pdfs or existing notes.",
+	"author": "QSun",
+	"authorUrl": "https://www.qiaosun.me",
+	"fundingUrl": "https://www.qiaosun.me/funding",
+	"isDesktopOnly": true
+}
