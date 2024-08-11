@@ -26,15 +26,18 @@ def summarize_pdf(pdf_content, arxiv_link=None):
         "## Experiments Settings & Results\n\n"
         "PDF Content:\n" + pdf_content
     )
-    response = openai.ChatCompletion.create(
-        model="gpt-4o-mini",  # You can use "gpt-3.5-turbo" or another appropriate model
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": prompt}
-        ],
-        max_tokens=4096  # Adjust as necessary based on PDF length and required summary detail
-    )
-    return response.choices[0].message['content'].strip()
+    try:
+        response = openai.ChatCompletion.create(
+            model="gpt-4o-mini",  # You can use "gpt-3.5-turbo" or another appropriate model
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant."},
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=4096  # Adjust as necessary based on PDF length and required summary detail
+        )
+        return response.choices[0].message['content'].strip()
+    except:
+        return None
 
 def search_arxiv(title):
     search = arxiv.Search(
@@ -64,6 +67,9 @@ def main(input_dir, output_dir, openai_key):
             pdf_content = extract_text_from_pdf(pdf_path)
             arxiv_link = search_arxiv(os.path.splitext(filename)[0])
             summary = summarize_pdf(pdf_content, arxiv_link)
+            if summary is None:
+                print(f"Failed to summarize {filename}. Try again later.")
+                continue
             output_filename = os.path.splitext(filename)[0] + ".md"
             output_path = os.path.join(output_dir, output_filename)
             save_summary_as_markdown(summary, output_path)
