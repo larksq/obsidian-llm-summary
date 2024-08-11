@@ -22,17 +22,20 @@ Request an API Key:
 
 To use the summarization feature, you’ll need an OpenAI API key. Replace the placeholder in the code with your actual API key.
 
-Summarize PDF Files
+1. Copy your PDF Files to the Files/PDFs, keep the file name the same as the paper's title.
+2. Summarize PDF Files
 
   - Prepare an environment with openai package by `pip install openai`
   - Run `python summary_pdf_folder.py {pdf_folder} {output_folder} {openai_api_key}`
 
-This command will search for all PDF files in your vault, summarize them, and insert the result into the output folder. The summary will be formatted with the following sections:
+This script will search for all PDF files in your vault, summarize them, and insert the result into the output folder. The summary will be formatted with the following sections:
 
   - Problems to Solve
   - Previous Methods and Their Limitations
   - Our Theory and Methods and How We Solve Them
   - Experiments to Back Our Theory
+
+You can change the pdf_folder by passing arguments into the python script.
 
 Create New Concept Notes
 

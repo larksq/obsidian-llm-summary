@@ -16,7 +16,7 @@ def extract_text_from_pdf(pdf_path):
 
 def summarize_pdf(pdf_content, arxiv_link=None):
     prompt = (
-        "Then critic and summarize the PDF file in the following structure and bullet points:\n\n"
+        "Critic and summarize the PDF file in the following structure and bullet points:\n\n"
         "Authors: \n"
         "Released Date: \n"
         "Arxiv: " + str(arxiv_link) + "\n\n"
@@ -73,9 +73,9 @@ def main(input_dir, output_dir, openai_key):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Summarize PDF files in a directory and save as Markdown.")
-    parser.add_argument("input_dir", type=str, default="Files/Raw PDFs", help="Path to the directory containing PDF files.")
-    parser.add_argument("output_dir", type=str, default="Concepts", help="Path to the directory to save Markdown summaries.")
-    parser.add_argument('openai_key', type=str)
+    parser.add_argument('--openai_key', type=str)
+    parser.add_argument("--input_dir", type=str, default="../../../Files/PDFs", help="Path to the directory containing PDF files.")
+    parser.add_argument("--output_dir", type=str, default="../../../Notes", help="Path to the directory to save Markdown summaries.")
     args = parser.parse_args()
 
     main(args.input_dir, args.output_dir, args.openai_key)

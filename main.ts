@@ -1,4 +1,4 @@
-import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting } from 'obsidian';
+import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting, Vault } from 'obsidian';
 import { OpenAI } from "openai";
 
 interface MyPluginSettings {
@@ -23,8 +23,7 @@ export default class MyPlugin extends Plugin {
 
 		// This creates an icon in the left ribbon.
 		const ribbonIconEl = this.addRibbonIcon('bot', 'Summary PDF Folder', (evt: MouseEvent) => {
-			// Called when the user clicks the icon.
-			new Notice(`WIP, Run the Python script mannually.`);
+			new Notice("Not working due to CROS polocy, try the python script instead.");
 		});
 		// Perform additional things with the ribbon
 		ribbonIconEl.addClass('my-plugin-ribbon-class');
@@ -46,7 +45,7 @@ export default class MyPlugin extends Plugin {
 				vault.createFolder('Concepts');
 				vault.createFolder('Attachments');
 				vault.createFolder('Files');
-				vault.createFolder('Files/Raw PDFs');
+				vault.createFolder('Files/PDFs');
 				// TODO: also add a readme file for instructions
 			}
 		});
