@@ -36,7 +36,8 @@ def summarize_pdf(pdf_content, arxiv_link=None):
             max_tokens=4096  # Adjust as necessary based on PDF length and required summary detail
         )
         return response.choices[0].message['content'].strip()
-    except:
+    except Exception as e:
+        print(f"Failed to summarize PDF: {e}")
         return None
 
 def search_arxiv(title):
@@ -65,6 +66,9 @@ def main(input_dir, output_dir, openai_key):
         if filename.endswith(".pdf"):
             pdf_path = os.path.join(input_dir, filename)
             pdf_content = extract_text_from_pdf(pdf_path)
+            if len(pdf_content) > 200000:
+                print(f"WARNING file is too long, cropping to 200k, length: {len(pdf_content)}")
+                pdf_content = pdf_content[:200000]
             arxiv_link = search_arxiv(os.path.splitext(filename)[0])
             summary = summarize_pdf(pdf_content, arxiv_link)
             if summary is None:
@@ -75,13 +79,15 @@ def main(input_dir, output_dir, openai_key):
             save_summary_as_markdown(summary, output_path)
             print(f"Saved summary for {filename} to {output_path}")
             # delete this file
-            os.remove(pdf_path)
+            if args.delete_pdf:
+                os.remove(pdf_path)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Summarize PDF files in a directory and save as Markdown.")
     parser.add_argument('--openai_key', type=str)
     parser.add_argument("--input_dir", type=str, default="../../../Files/PDFs", help="Path to the directory containing PDF files.")
     parser.add_argument("--output_dir", type=str, default="../../../Notes", help="Path to the directory to save Markdown summaries.")
+    parser.add_argument("--delete_pdf", type=bool, default=False, help="Delete the PDF file after summarizing.")
     args = parser.parse_args()
 
     main(args.input_dir, args.output_dir, args.openai_key)
