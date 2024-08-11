@@ -2,6 +2,8 @@
 
 Thoth Notes is an Obsidian plugin designed to enhance your note-taking experience by automating the creation and summarization of notes directly from PDF files stored in your vault. With a focus on academic papers, this plugin offers a simple and efficient way to summarize complex documents into a structured format.
 
+Below is a quick demo of how Thoth Notes work.
+
 # Features
 
   - Summarize PDF Files: Automatically generate summaries for PDF files in your vault using OpenAI’s GPT-3.5-turbo model. The summaries are structured in markdown with sections for Problems to Solve, Previous Methods and Their Limitations, Our Theory and Methods, and Experiments to Back Our Theory.
@@ -9,8 +11,8 @@ Thoth Notes is an Obsidian plugin designed to enhance your note-taking experienc
 
 # Installation
 
-  1.	Clone the repository or download the plugin files.
-  2.	Place the plugin folder into your Obsidian plugins directory, usually located at VaultFolder/.obsidian/plugins/.
+  1.	Clone the repository or download the thoth-note files.
+  2.	Place the thoth-note folder into your Obsidian plugins directory, usually located at `<VaultFolder>/.obsidian/plugins/`.
   3.	Enable the plugin in Obsidian by navigating to Settings > Community Plugins and toggling on Thoth Notes.
   4.  Run `npm run dev` to start.
   5.  Fill-in the OpenAI API Key to the setting popup.
