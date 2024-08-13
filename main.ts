@@ -22,7 +22,7 @@ export default class MyPlugin extends Plugin {
 		await this.loadSettings();
 
 		// This creates an icon in the left ribbon.
-		// const ribbonIconEl = this.addRibbonIcon('bot', 'About Thoth Note', (evt: MouseEvent) => {
+		// const ribbonIconEl = this.addRibbonIcon('bot', 'About LLM Summary Note', (evt: MouseEvent) => {
 		// 	new Notice("Not working due to CROS polocy, try the python script instead.");
 		// });
 		// Perform additional things with the ribbon
@@ -30,12 +30,12 @@ export default class MyPlugin extends Plugin {
 
 		// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
 		const statusBarItemEl = this.addStatusBarItem();
-		statusBarItemEl.setText('Thoth Ready');
+		statusBarItemEl.setText('LLM Ready');
 
 		// This adds a simple command that can be triggered anywhere
 		this.addCommand({
-			id: 'init-thoth-notes-folders',
-			name: 'Initialize Thoth Notes folders',
+			id: 'init-llm-summary-folders',
+			name: 'Initialize LLM Summary Notes folders',
 
 			callback: () => {
 				const { vault } = this.app;
@@ -82,7 +82,7 @@ export default class MyPlugin extends Plugin {
 							const generatedContent = response.choices[0]?.message?.content?.trim() || '';
 
 							// Create a new file in the vault with the selected text as its name
-							await vault.create(filePath, `This is a Thoth Concept.\n\n${generatedContent}`);
+							await vault.create(filePath, `This is a LLM Concept.\n\n${generatedContent}`);
 							new Notice(`New created note at Concepts/${sanitizedFileName}`);
 						} catch (error) {
 							new Notice(`Error creating note: ${error.message}`);
@@ -93,7 +93,7 @@ export default class MyPlugin extends Plugin {
 				} else {
 					new Notice('No text selected');
 				}
-				statusBarItemEl.setText('Thoth Ready');
+				statusBarItemEl.setText('LLM Ready');
 			},
 			hotkeys: [
 				{

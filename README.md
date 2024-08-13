@@ -1,4 +1,4 @@
-<h1 align="center">Thoth Notes</h1>
+<h1 align="center">LLM Summary</h1>
 
 <p align="center">Automate summary and concept defining in <a href="https://obsidian.md/">Obsidian</a>.</p>
 <p align="center">
@@ -21,27 +21,27 @@ Currently suits academic paper readings the best.
 
 # Installation
 
-**OpenAI API Key Requested**: Before you start, you need an OpenAI API key to make Thoth Notes function properly. Create one from [their website](https://platform.openai.com/api-keys) if you don't have one.
+**OpenAI API Key Requested**: Before you start, you need an OpenAI API key to make LLM Summary function properly. Create one from [their website](https://platform.openai.com/api-keys) if you don't have one.
 
 **Python Environment Requested**: You also need a functioning python environment. Mac users have a default python environment. And it's easy to setup on a windows machine too.
 
-**New Vault Recommended**: We recommend you start a new vault to avoid any possible conflicts since thoth notes work on a specific folder setup.
+**New Vault Recommended**: We recommend you start a new vault to avoid any possible conflicts since LLM Summary work on a specific folder setup.
 
 Follow these steps to install from the official Obsidian plug-in store:
 
-  1. Search for "Thoth Notes" in Obsidian's community plugins browser (click "settings...", then Community plugins)
-  2. Enable the plugin in your Obsidian settings (click "settings...", find "Thoth Notes" under "Community plugins"->"Installed plugins")
+  1. Search for "LLM Summary" in Obsidian's community plugins browser (click "settings...", then Community plugins)
+  2. Enable the plugin in your Obsidian settings (click "settings...", find "LLM Summary" under "Community plugins"->"Installed plugins")
   3. Check the settings. Paste your OpenAI API Key into the first field. Change your expert field (default is ML) if you want. 
-  4. Open command, and run "Initialize Thoth Notes Folders" to build the working folders.
+  4. Open command, and run "Initialize LLM Summary Folders" to build the working folders.
   
 <img src="obsidian_command_button.png" width="600px">
 
 Follow these steps to install from github repo (npm requested):
   1. Clone the repository into your Obsidian plugins directory, usually located at `<VaultFolder>/.obsidian/plugins/`.
   2. Run `npm run dev` to start.
-  3. Enable the plugin in Obsidian by navigating to Settings > Community Plugins and toggling on Thoth Notes.
+  3. Enable the plugin in Obsidian by navigating to Settings > Community Plugins and toggling on LLM Summary.
   3. Check the settings. Paste your OpenAI API Key into the first field. Change your expert field (default is ML) if you want. 
-  4. Open command, and run "Initialize Thoth Notes Folders" to build the working folders.
+  4. Open command, and run "Initialize LLM Summary Notes Folders" to build the working folders.
 
 Now you should have the folder structure like this:
 
