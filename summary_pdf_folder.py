@@ -1,11 +1,11 @@
 import os
 import argparse
 import fitz  # PyMuPDF
-import openai
+from openai import OpenAI
 import arxiv
 
 # Initialize OpenAI API key
-openai.api_key = None
+client = OpenAI()
 
 def extract_text_from_pdf(pdf_path):
     doc = fitz.open(pdf_path)
@@ -27,7 +27,7 @@ def summarize_pdf(pdf_content, arxiv_link=None):
         "PDF Content:\n" + pdf_content
     )
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4o-mini",  # You can use "gpt-3.5-turbo" or another appropriate model
             messages=[
                 {"role": "system", "content": "You are a helpful assistant."},
@@ -35,7 +35,7 @@ def summarize_pdf(pdf_content, arxiv_link=None):
             ],
             max_tokens=4096  # Adjust as necessary based on PDF length and required summary detail
         )
-        return response.choices[0].message['content'].strip()
+        return response.choices[0].message.content.strip()
     except Exception as e:
         print(f"Failed to summarize PDF: {e}")
         return None
@@ -57,7 +57,9 @@ def save_summary_as_markdown(summary, output_path):
         file.write(summary)
 
 def main(input_dir, output_dir, openai_key):
-    openai.api_key = openai_key
+    if openai_key is not None:
+        # set environment variable of openai_key
+        os.environ["OPENAI_API_KEY"] = openai_key
 
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
