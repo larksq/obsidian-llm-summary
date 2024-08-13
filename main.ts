@@ -79,7 +79,7 @@ export default class MyPlugin extends Plugin {
 								model: 'gpt-4o-mini',
 							});
 
-							const generatedContent = response.choices[0].message.content.trim();
+							const generatedContent = response.choices[0]?.message?.content?.trim() || '';
 
 							// Create a new file in the vault with the selected text as its name
 							await vault.create(filePath, `This is a Thoth Concept.\n\n${generatedContent}`);
