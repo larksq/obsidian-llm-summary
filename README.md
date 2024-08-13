@@ -112,7 +112,7 @@ This command will set the OPENAI_API_KEY environment variable for the current se
 
 ### Install Dependency
 
-Only one dependency here. Install by run `pip insatll openai` in your terminal.
+Install by run `pip insatll openai, arxiv, pymupdf` in your terminal.
 
 ### Run Python Script to Summary
 
