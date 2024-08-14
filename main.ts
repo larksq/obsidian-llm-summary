@@ -90,10 +90,7 @@ export default class MLSummary extends Plugin {
 		});
 
 		// This adds a settings tab so the user can configure various aspects of the plugin
-		this.addSettingTab(new SampleSettingTab(this.app, this));
-
-		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
-		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
+		this.addSettingTab(new MLSummarySettingTab(this.app, this));
 	}
 
 	onunload() {
@@ -109,7 +106,7 @@ export default class MLSummary extends Plugin {
 	}
 }
 
-class SampleSettingTab extends PluginSettingTab {
+class MLSummarySettingTab extends PluginSettingTab {
 	plugin: MLSummary;
 
 	constructor(app: App, plugin: MLSummary) {
