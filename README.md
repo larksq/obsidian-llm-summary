@@ -7,7 +7,7 @@
 
 
 
-Minimize your efforts for lazy note-takers. Before your readings, summary all PDF files in a folder to your vault with the power of LLMs (like GPTs from OpenAI). During your readings, defining concepts to new md notes and create a link to each.
+Minimize your efforts for lazy note-takers. Before your readings, summarize all PDF files in a folder to your vault with the power of LLMs (like GPTs from OpenAI). During your readings, define concepts to new *.MD notes and create a link to each.
 
 Currently suits academic paper readings the best.
 
@@ -21,18 +21,27 @@ Currently suits academic paper readings the best.
 
 # Installation
 
+**Install Dependency**
+- For MacOS users:
+  Before installation, you can check your systemwide version of Python and Pip by using `which` command to determine pip or pip3 (Let's take pip3 for example).
+  - Anaconda manager: `pip3 install openai, arxiv, pymupdf`
+  - Homebrew manager: `pip3 install openai, arxiv, pymupdf --break-system-packages`
+
+- For Windows users:
+  Install by running `pip install openai, arxiv, pymupdf` in your terminal.
+
 **OpenAI API Key Requested**: Before you start, you need an OpenAI API key to make LLM Summary function properly. Create one from [their website](https://platform.openai.com/api-keys) if you don't have one.
 
-**Python Environment Requested**: You also need a functioning python environment. Mac users have a default python environment. And it's easy to setup on a windows machine too.
+**Python Environment Requested**: You also need a functioning Python environment. Mac users have a default Python environment. And it's easy to setup on a Windows machine too.
 
-**New Vault Recommended**: We recommend you start a new vault to avoid any possible conflicts since LLM Summary work on a specific folder setup.
+**New Vault Recommended**: We recommend you start a new vault to avoid any possible conflicts since LLM Summary works on a specific folder setup.
 
 Follow these steps to install from the official Obsidian plug-in store:
 
   1. Search for "LLM Summary" in Obsidian's community plugins browser (click "settings...", then Community plugins)
-  2. Enable the plugin in your Obsidian settings (click "settings...", find "LLM Summary" under "Community plugins"->"Installed plugins")
+  2. Enable the plugin in your Obsidian settings (click "Settings...", find "LLM Summary" under "Community plugins"-> "Installed plugins")
   3. Check the settings. Paste your OpenAI API Key into the first field. Change your expert field (default is ML) if you want. 
-  4. Open command, and run "Initialize LLM Summary Folders" to build the working folders.
+  4. Open command palette, and run "Initialize LLM Summary Folders" to build the working folders.
   
 <img src="obsidian_command_button.png" width="600px">
 
@@ -66,7 +75,7 @@ Now you are good to go. We recommend the plugin [Image Converter](https://github
 
 ## Summary PDFs
 
-You need to run the `summary_pdf_folder.py` script (find at your plug-in folder). To use the summarization feature, first setup your OpenAI API Key for python script, [full instructions from OpenAI](https://platform.openai.com/docs/quickstart/step-2-set-up-your-api-key):
+You need to run the `summary_pdf_folder.py` script (find it in your plug-in folder). To use the summarization feature, first setup your OpenAI API Key for Python script, [full instructions from OpenAI](https://platform.openai.com/docs/quickstart/step-2-set-up-your-api-key):
 
 ### Setup API Key
 
@@ -110,14 +119,10 @@ This command will set the OPENAI_API_KEY environment variable for the current se
 2. **Verification**: To verify the setup, reopen the command prompt and type the command below. It should display your API key: echo %OPENAI_API_KEY%
 
 
-### Install Dependency
-
-Install by run `pip install openai, arxiv, pymupdf` in your terminal.
-
 ### Run Python Script to Summary
 
-1. Copy your PDF Files to the Files/PDFs, keep the file name the same as the paper's title (recommended not required).
-2. Summarize PDF Files (you can set the api key by passing an argument). Run `python summary_pdf_folder.py`
+1. Copy your PDF Files to the Files/PDFs, and keep the file name the same as the paper's title (recommended not required).
+2. Summarize PDF Files (you can set the API key by passing an argument). Run `python summary_pdf_folder.py`
 
 This script will search for all PDF files, summarize them, and save the result into the output folder in your vault. The summary will be formatted with the following sections:
 
@@ -126,16 +131,16 @@ This script will search for all PDF files, summarize them, and save the result i
   - Our Theory and Methods and How We Solve Them
   - Experiments to Back Our Theory
 
-You can change the pdf_folder, output_folder, or openai_api_key by passing arguments into the python script. You can also automatically delete these PDF files by setting delete_pdf to True.
+You can change the pdf_folder, output_folder, or openai_api_key by passing arguments into the Python script. You can also automatically delete these PDF files by setting delete_pdf to True.
 
 ## Create New Concept Notes
 
   - Select the concept text you want to define
-  - Open command, run "New concept from selected" and wait for the process (by checking status changes).
+  - Open command palette, run "New concept from selected" and wait for the process (by checking status changes).
 
 ### Hotkey Setting
 
-We strongly recommend to set a hotkey for this command to avoid interuptions during your reading. Click 'Settings...' -> 'Hotkeys', and search 'LLM Summary' to setup a hotkey for the 'New concept from selected' command.
+We strongly recommend setting a hotkey for this command to avoid interruptions during your reading. Click 'Settings...' -> 'Hotkeys', and search 'LLM Summary' to setup a hotkey for the 'New concept from selected' command.
 
 <img src="hotkeys.png" width=600px>
 
