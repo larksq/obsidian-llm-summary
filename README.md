@@ -131,6 +131,12 @@ You can change the pdf_folder, output_folder, or openai_api_key by passing argum
 ## Create New Concept Notes
 
   - Select the concept text you want to define
-  - Press hotkey: Ctrl + Shift + N
+  - Open command, run "New concept from selected" and wait for the process (by checking status changes).
+
+### Hotkey Setting
+
+We strongly recommend to set a hotkey for this command to avoid interuptions during your reading. Click 'Settings...' -> 'Hotkeys', and search 'LLM Summary' to setup a hotkey for the 'New concept from selected' command.
+
+<img src="hotkeys.png" width=600px>
 
 This command will create a new markdown file in the Concepts folder with the selected text as the file name. 

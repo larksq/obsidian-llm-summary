@@ -1,41 +1,33 @@
 import { App, Editor, MarkdownView, Modal, Notice, Plugin, PluginSettingTab, Setting, Vault } from 'obsidian';
 import { OpenAI } from "openai";
 
-interface MyPluginSettings {
+interface MLSummarySettings {
 	OpenAIAPIKey: string;
 	newConceptPrompt: string;
 	pdfFolder: string;
 	summaryOutputFolder: string;
 }
 
-const DEFAULT_SETTINGS: MyPluginSettings = {
+const DEFAULT_SETTINGS: MLSummarySettings = {
 	OpenAIAPIKey: "",
 	newConceptPrompt: "ML",
 	pdfFolder: "Files/Raw PDFs",
 	summaryOutputFolder: "Concepts"
 }
 
-export default class MyPlugin extends Plugin {
-	settings: MyPluginSettings;
+export default class MLSummary extends Plugin {
+	settings: MLSummarySettings;
 
 	async onload() {
 		await this.loadSettings();
-
-		// This creates an icon in the left ribbon.
-		// const ribbonIconEl = this.addRibbonIcon('bot', 'About LLM Summary Note', (evt: MouseEvent) => {
-		// 	new Notice("Not working due to CROS polocy, try the python script instead.");
-		// });
-		// Perform additional things with the ribbon
-		// ribbonIconEl.addClass('my-plugin-ribbon-class');
 
 		// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
 		const statusBarItemEl = this.addStatusBarItem();
 		statusBarItemEl.setText('LLM Ready');
 
-		// This adds a simple command that can be triggered anywhere
 		this.addCommand({
 			id: 'init-llm-summary-folders',
-			name: 'Initialize LLM Summary Notes folders',
+			name: 'Initialize Notes Folders',
 
 			callback: () => {
 				const { vault } = this.app;
@@ -95,22 +87,10 @@ export default class MyPlugin extends Plugin {
 				}
 				statusBarItemEl.setText('LLM Ready');
 			},
-			hotkeys: [
-				{
-					modifiers: ["Ctrl", "Shift"],
-					key: "N"
-				}
-			]
 		});
 
 		// This adds a settings tab so the user can configure various aspects of the plugin
 		this.addSettingTab(new SampleSettingTab(this.app, this));
-
-		// If the plugin hooks up any global DOM events (on parts of the app that doesn't belong to this plugin)
-		// Using this function will automatically remove the event listener when this plugin is disabled.
-		// this.registerDomEvent(document, 'click', (evt: MouseEvent) => {
-		// 	console.log('click', evt);
-		// });
 
 		// When registering intervals, this function will automatically clear the interval when the plugin is disabled.
 		this.registerInterval(window.setInterval(() => console.log('setInterval'), 5 * 60 * 1000));
@@ -130,19 +110,14 @@ export default class MyPlugin extends Plugin {
 }
 
 class SampleSettingTab extends PluginSettingTab {
-	plugin: MyPlugin;
+	plugin: MLSummary;
 
-	constructor(app: App, plugin: MyPlugin) {
+	constructor(app: App, plugin: MLSummary) {
 		super(app, plugin);
 		this.plugin = plugin;
 
 		const {containerEl} = this;
-
 		containerEl.empty();
-		// const intro = containerEl.createEl("div");
-		// intro.createEl(
-		// 	"h2", {text: "Setup "}
-		// );
 
 		new Setting(containerEl)
 			.setName('OpenAI API Key (Required)')
