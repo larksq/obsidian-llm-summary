@@ -47,10 +47,10 @@ Follow these steps to install from the official Obsidian plug-in store:
 
 Follow these steps to install from github repo (npm requested):
   1. Clone the repository into your Obsidian plugins directory, usually located at `<VaultFolder>/.obsidian/plugins/`.
-  2. Run `npm run dev` to start.
+  2. If you are using a mirror website url, it is recommended to change to the official one by `npm config set registry https://registry.npmjs.org/`. Build npm packages first `npn install` and then run `npm run dev` to start.
   3. Enable the plugin in Obsidian by navigating to Settings > Community Plugins and toggling on LLM Summary.
   3. Check the settings. Paste your OpenAI API Key into the first field. Change your expert field (default is ML) if you want. 
-  4. Open command, and run "Initialize LLM Summary Notes Folders" to build the working folders.
+  4. Open command, and run "LLM Summary: Initialize Notes Folders" to build the working folders.
 
 Now you should have the folder structure like this:
 
