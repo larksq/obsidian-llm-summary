@@ -1,7 +1,7 @@
 {
 	"name": "llm-summary",
 	"version": "0.1.1",
-	"description": "Quick note taking with the help of LLMs. LLMs help you to summarize / organize pdfs or existing notes.",
+	"description": "Quick note taking with the help of LLMs. LLMs help you to summarize / organize PDFs or existing notes.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",

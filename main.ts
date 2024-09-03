@@ -23,11 +23,11 @@ export default class MLSummary extends Plugin {
 
 		// This adds a status bar item to the bottom of the app. Does not work on mobile apps.
 		const statusBarItemEl = this.addStatusBarItem();
-		statusBarItemEl.setText('LLM Ready');
+		statusBarItemEl.setText('LLM ready');
 
 		this.addCommand({
 			id: 'init-llm-summary-folders',
-			name: 'Initialize Notes Folders',
+			name: 'Initialize notes folders',
 
 			callback: () => {
 				const { vault } = this.app;
@@ -63,7 +63,7 @@ export default class MLSummary extends Plugin {
 
 						const filePath = `Concepts/${sanitizedFileName}.md`;
 						editor.replaceSelection(`[[${sanitizedFileName}]]`);
-						statusBarItemEl.setText('Defining New Concept..');
+						statusBarItemEl.setText('Defining new concept..');
 						try {
 							// Query OpenAI API to generate text based on selected text
 							const response = await openai.chat.completions.create({
@@ -85,7 +85,7 @@ export default class MLSummary extends Plugin {
 				} else {
 					new Notice('No text selected');
 				}
-				statusBarItemEl.setText('LLM Ready');
+				statusBarItemEl.setText('LLM ready');
 			},
 		});
 
@@ -127,7 +127,7 @@ class MLSummarySettingTab extends PluginSettingTab {
 					await this.plugin.saveSettings();
 				}));
 		new Setting(containerEl)
-			.setName('New Concept Fields (Required)')
+			.setName('New concept fields (required)')
 			.setDesc('Your expert fields for notes. Left empty to not specify (and got vague explains). Modify carefully.')
 			.addText(text => text
 				.setPlaceholder('ML')
